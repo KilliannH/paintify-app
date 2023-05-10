@@ -11,10 +11,14 @@ export class AuthService {
   constructor() { }
 
   signIn(): Promise<any> {
-    return Promise.resolve()
+    return Promise.resolve();
+  }
+
+  login(): Promise<any> {
+    return Promise.resolve();
   }
 
   logout(): Promise<any> {
-    return Promise.resolve()
+    return Promise.resolve();
   }
 }

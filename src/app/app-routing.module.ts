@@ -3,12 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth-guard/auth.guard';
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PaintingComponent } from './painting/painting.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    // canActivate: [AuthGuard],
     component: HomeComponent
+  },
+  {
+    path: 'dashboard',
+    canActivate: [AuthGuard],
+    component: DashboardComponent
+  },
+  {
+    path: 'painting',
+    canActivate: [AuthGuard],
+    component: PaintingComponent
   },
   {
     path: 'login',

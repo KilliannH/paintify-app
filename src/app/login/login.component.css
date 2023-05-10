@@ -1,0 +1,18 @@
+.login-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.login-card {
+    margin: 30px;
+    padding: 10px;
+}
+
+.login-card-title {
+    text-align: center;
+}
+
+.login-card-button {
+    display: flex;
+    justify-content: flex-end;
+}

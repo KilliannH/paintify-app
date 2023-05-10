@@ -12,6 +12,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PaletteComponent } from './palette/palette.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PaintingComponent } from './painting/painting.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { PaletteComponent } from './palette/palette.component';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    PaletteComponent
+    PaletteComponent,
+    DashboardComponent,
+    PaintingComponent
   ],
   imports: [
     AppRoutingModule,
