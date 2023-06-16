@@ -1,3 +1,4 @@
 export default {
-    appName: 'Paintify'
+    appName: 'Paintify',
+    jwtTokenName: 'paintify_token'
 }

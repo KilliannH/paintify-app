@@ -27,12 +27,6 @@ export class LoginComponent {
     return this.emailControl.hasError('email') ? 'Not a valid email' : '';
   }
 
-  submit() {
-    if (this.form.valid) {
-      console.log(this.form.value);
-    }
-  }
-
   getPasswordErrorMessage() {
     if (this.passwordControl.hasError('required')) {
       return 'You must enter a value';
@@ -41,18 +35,10 @@ export class LoginComponent {
     return this.passwordControl.hasError('minlength') ? 'Not a valid password' : '';
   }
 
-  doLogin(): Promise<any> | void {
-    if (!this.form.valid) {
-      return;
+  loginUser() {
+    if (this.form.valid) {
+      return this.authService.login(this.form.value);
     }
-    return this.authService.login().then((response: any) => {
-      const userInfos = {
-        id: response.userInfos.id,
-        email: response.userInfos.email,
-        name: response.userInfos.name,
-        imageUrl: response.userInfos.picture.data.url
-      }
-      return this.router.navigate(['/home']);
-    });
+    return null;
   }
 }
