@@ -17,6 +17,15 @@ export class NavbarComponent {
   _connUser: any = null;
 
   constructor(private authService: AuthService) {
+    if(this.authService.isLoggedIn) {
+      const accessToken = localStorage.getItem(constants.jwtTokenName);
+      if(accessToken !== null) {
+        const decoded = constants.getDecodedAccessToken(accessToken);
+        this.authService.findUserProfileByUsername(decoded.sub).subscribe((res) => {
+          this._connUser = res;
+        });
+      }
+    }
     this.authService.currentUser$.subscribe((data) => {
       if(data) {
         this._connUser = data;

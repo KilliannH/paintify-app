@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import constants from './constants';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -14,12 +15,14 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) { }
   
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-        const authToken = this.authService.getToken();
+        const authToken = localStorage.getItem(constants.jwtTokenName);
+        if(authToken !== null) {
         req = req.clone({
             setHeaders: {
                 Authorization: "Bearer " + authToken
             }
         });
-        return next.handle(req);
+      }
+      return next.handle(req);
     }
 }

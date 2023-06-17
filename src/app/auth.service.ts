@@ -35,9 +35,6 @@ export class AuthService {
         });
       });
   }
-  getToken() {
-    return localStorage.getItem(constants.jwtTokenName);
-  }
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem(constants.jwtTokenName);
     return authToken !== null;
@@ -59,8 +56,8 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
-  getUserProfileByUsername(username: any): Observable<any> {
-    return this.http.get('/api/users/username/' + username, { headers: this.headers }).pipe(
+  findUserProfileByUsername(username: any): Observable<any> {
+    return this.http.post('/api/users', username, { headers: this.headers }).pipe(
       map((res) => {
         this.currentUser$.next(res);
         return res || {};
