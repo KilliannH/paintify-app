@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import constants from '../constants';
 
 @Component({
   selector: 'app-navbar',
@@ -13,10 +12,21 @@ export class NavbarComponent {
   @Input()
   appName: string = '';
 
-  userInfoSubscritpion$: Subscription | null = null;
   _connUser: any = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {
+    if(authService.isLoggedIn) {
+      const accessToken = localStorage.getItem(constants.jwtTokenName);
+      if(accessToken !== null) {
+      const decoded = constants.getDecodedAccessToken(accessToken);
+      this.authService.getUserProfileByUsername(decoded.sub).subscribe((res) => {
+        this._connUser = res;
+      });
+      }
+    }
+  }
 
-  doLogout() {}
+  logout() {
+    this.authService.doLogout()
+  }
 }

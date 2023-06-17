@@ -3,16 +3,17 @@
    <span class="spacer"></span>
 
    <a [routerLink]="'/login'" *ngIf="!_connUser" mat-button class="login-button" aria-label="Login Button">Login</a>
-   <button *ngIf="_connUser" mat-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+   <a *ngIf="_connUser" mat-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
    (click)="menuTrigger.openMenu()"
-   class="logged-button" aria-label="Logged Button"><span class="profile-container"><img src="{{_connUser.imageUrl}}"></span> {{_connUser.username}}</button>
-   <mat-menu #menu="matMenu" [overlapTrigger]="false">
+   class="logged-button" aria-label="Logged Button"><span class="profile-container"><img src="{{_connUser.imageUrl}}">
+    </span> {{_connUser.username}}</a>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
     <span>
         <a [routerLink]="'/settings'" mat-menu-item>
             <mat-icon>settings</mat-icon>
             <span>Settings</span>
         </a>
-        <button mat-menu-item (click)="doLogout()">
+        <button mat-menu-item (click)="logout()">
             <mat-icon>exit_to_app</mat-icon>
             <span>Logout</span>
         </button>

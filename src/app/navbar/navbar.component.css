@@ -3,11 +3,14 @@
     color: #fff;
 }
 
+.profile-container {
+    display: inline-block;
+}
+
 .profile-container > img {
     border-radius: 50%;
     border: 1.8px solid #fff;
     margin-right: 6px;
-    margin-top: 8px;
     width: 30px;
     height: 30px;
 }

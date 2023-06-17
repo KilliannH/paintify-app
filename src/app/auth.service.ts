@@ -29,13 +29,8 @@ export class AuthService {
       .post<any>('api/login', user)
       .subscribe((res: any) => {
         localStorage.setItem(constants.jwtTokenName, res.token);
-        this.getUserProfile(res.id).subscribe((res) => {
-          this.currentUser = {
-            id: res.id,
-            username: res.username,
-            email: res.email,
-            roles: res.roles
-          };
+        this.getUserProfileById(res.id).subscribe((res) => {
+          this.currentUser = res;
           this.router.navigate(['/dashboard']);
         });
       });
@@ -54,7 +49,7 @@ export class AuthService {
     }
   }
   // User profile
-  getUserProfile(id: any): Observable<any> {
+  getUserProfileById(id: any): Observable<any> {
     return this.http.get('/api/users/' + id, { headers: this.headers }).pipe(
       map((res) => {
         return res || {};
@@ -62,6 +57,15 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
+  getUserProfileByUsername(username: any): Observable<any> {
+    return this.http.get('/api/users/username/' + username, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || {};
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   // Error
   handleError(error: HttpErrorResponse) {
     let msg = '';
