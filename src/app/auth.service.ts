@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/types/user';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {
   HttpClient,
@@ -16,7 +16,8 @@ import constants from './constants';
 export class AuthService {
 
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
+
+  currentUser$ = new BehaviorSubject<any>(null);
   
   constructor(private http: HttpClient, public router: Router) {}
   // Sign-up
@@ -30,7 +31,6 @@ export class AuthService {
       .subscribe((res: any) => {
         localStorage.setItem(constants.jwtTokenName, res.token);
         this.getUserProfileById(res.id).subscribe((res) => {
-          this.currentUser = res;
           this.router.navigate(['/dashboard']);
         });
       });
@@ -45,6 +45,7 @@ export class AuthService {
   doLogout() {
     let removeToken = localStorage.removeItem(constants.jwtTokenName);
     if (removeToken == null) {
+      this.currentUser$.next(null)
       this.router.navigate(['/login']);
     }
   }
@@ -52,6 +53,7 @@ export class AuthService {
   getUserProfileById(id: any): Observable<any> {
     return this.http.get('/api/users/' + id, { headers: this.headers }).pipe(
       map((res) => {
+        this.currentUser$.next(res);
         return res || {};
       }),
       catchError(this.handleError)
@@ -60,6 +62,7 @@ export class AuthService {
   getUserProfileByUsername(username: any): Observable<any> {
     return this.http.get('/api/users/username/' + username, { headers: this.headers }).pipe(
       map((res) => {
+        this.currentUser$.next(res);
         return res || {};
       }),
       catchError(this.handleError)
