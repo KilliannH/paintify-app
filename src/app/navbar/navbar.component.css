@@ -5,6 +5,8 @@
 
 .profile-container {
     display: inline-block;
+    position: relative;
+    top: 8px;
 }
 
 .profile-container > img {
