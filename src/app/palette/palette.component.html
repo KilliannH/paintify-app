@@ -1,5 +1,5 @@
 <div style="display: flex; flex-flow: row wrap;">
     <span style="display: flex; flex-flow: row wrap;" *ngFor="let color of colors">
-        <span [ngStyle]="{'background': color.code}" [ngClass]="{'selected': color.selected}" style="padding: 40px;"></span>
+        <span id='{{color.name}}' (click)='_onClick($event.target)' [ngStyle]="{'background': color.code}" [ngClass]="{'selected': color.selected}" style="padding: 40px;"></span>
     </span>
 </div>

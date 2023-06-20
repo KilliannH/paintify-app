@@ -3,6 +3,7 @@
    <span class="spacer"></span>
 
    <a [routerLink]="'/login'" *ngIf="!_connUser" mat-button class="login-button" aria-label="Login Button">Login</a>
+   <a *ngIf="_connUser" [routerLink]="'/dashboard'" mat-button class="dashboard-button" aria-label="Dashboard Button">Dashboard</a>
    <a *ngIf="_connUser" mat-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
    (click)="menuTrigger.openMenu()"
    class="logged-button" aria-label="Logged Button"><span class="profile-container"><img src="{{_connUser.imageUrl}}">
